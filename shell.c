@@ -1,25 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include<unistd.h> 
 
 int DEFAULT_COMMAND_SIZE = 20;
 int DEFAULT_COMMAND_WORD_SIZE = 5;
-char *DEFAULT_SUPPORTED_COMMANDS[] = {"dir_tabdeel_karo", "dir_banao", "dir_dikhao", "dir_urao", "mojooda_dir"};
+char *DEFAULT_SUPPORTED_COMMANDS[] = {"badlo_dir", "banao_dir", "dikhao_dir", "urao_dir", "mojooda_dir"};
 
 char *read_command();
 char **extract_words(char *command);
+void run_appropriate_command_function(char **command_words);
 
 int main() {
+  char *command;
+  char **command_words;
+  char current_dir[100];
+
   while (1) {
-    char *command;
-    char **command_words;
-    printf("ubaidrmn@pc:~/$");
+    printf("urdushell@%s$ ", getcwd(current_dir, 100));
     command = read_command();
     command_words = extract_words(command);
-    // printf("%.*s",DEFAULT_COMMAND_SIZE,command);
+    run_appropriate_command_function(command_words);
   }
 
   return 0;
+}
+
+void run_appropriate_command_function(char **command_words) {
+  char *cwd;
+  if (strcmp(command_words[0], DEFAULT_SUPPORTED_COMMANDS[0]) == 0) {
+    chdir(command_words[1]);
+  } else {
+    printf("%s: command not found\n", command_words[0]);
+  }
 }
 
 char *read_command() {
@@ -58,3 +71,4 @@ char **extract_words(char *command) {
 
   return command_words;
 }
+
