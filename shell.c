@@ -4,12 +4,12 @@
 
 int DEFAULT_COMMAND_SIZE = 20;
 int DEFAULT_COMMAND_WORD_SIZE = 5;
+char *DEFAULT_SUPPORTED_COMMANDS[] = {"dir_tabdeel_karo", "dir_banao", "dir_dikhao", "dir_urao", "mojooda_dir"};
 
 char *read_command();
 char **extract_words(char *command);
 
 int main() {
-
   while (1) {
     char *command;
     char **command_words;
