@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<unistd.h> 
+#include <unistd.h>
+#include <sys/stat.h>
 
 int DEFAULT_COMMAND_SIZE = 20;
 int DEFAULT_COMMAND_WORD_SIZE = 5;
@@ -30,6 +31,8 @@ void run_appropriate_command_function(char **command_words) {
   char *cwd;
   if (strcmp(command_words[0], DEFAULT_SUPPORTED_COMMANDS[0]) == 0) {
     chdir(command_words[1]);
+  } else if (strcmp(command_words[0], DEFAULT_SUPPORTED_COMMANDS[1]) == 0) {
+    mkdir(command_words[1], 0775);
   } else {
     printf("%s: command not found\n", command_words[0]);
   }
